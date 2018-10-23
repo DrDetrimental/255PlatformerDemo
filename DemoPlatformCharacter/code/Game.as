@@ -15,6 +15,7 @@
 		public function gameLoop(e:Event):void{
 			player.update();
 			Time.update();
+			KeyboardInput.update();
 		}//ends gameLoop
 	}//ends game class
 }//ends package

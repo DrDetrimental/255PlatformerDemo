@@ -2,6 +2,7 @@
 	
 	import flash.display.MovieClip;
 	import flash.geom.Point;
+	import flash.ui.Keyboard;
 	
 	
 	public class Player extends MovieClip {
@@ -21,19 +22,11 @@
 		
 		public function update():void{
 			
-			if(KeyboardInput.keyA) velocity.x -= HORIZONTAL_ACCELERATION * Time.dt;
-			if(KeyboardInput.keyD) velocity.x += HORIZONTAL_ACCELERATION * Time.dt;
-			
-			if(!KeyboardInput.keyA && !KeyboardInput.keyD){
-				if(velocity.x < 0){
-					velocity.x += HORIZONTAL_DECELERATION * Time.dt;
-					if(velocity.x > 0) velocity.x = 0;
-				}
-				if(velocity.x > 0){
-					velocity.x -= HORIZONTAL_DECELERATION * Time.dt;
-					if(velocity.x < 0) velocity.x = 0;
-				}
+			if(KeyboardInput.OnKeyDown(Keyboard.SPACE)){
+				trace("jump");
 			}
+			
+			handleWalking();
 			
 			doPhysics();
 			
@@ -59,6 +52,22 @@
 			//apply velocity to position
 			x += velocity.x * Time.dt;
 			y += velocity.y * Time.dt;
+		}
+		private function handleWalking():void{
+			
+			if(KeyboardInput.IsKeyDown(Keyboard.LEFT)) velocity.x -= HORIZONTAL_ACCELERATION * Time.dt;
+			if(KeyboardInput.IsKeyDown(Keyboard.RIGHT)) velocity.x += HORIZONTAL_ACCELERATION * Time.dt;
+			
+			if(!KeyboardInput.IsKeyDown(Keyboard.LEFT) && !KeyboardInput.IsKeyDown(Keyboard.RIGHT)){
+				if(velocity.x < 0){
+					velocity.x += HORIZONTAL_DECELERATION * Time.dt;
+					if(velocity.x > 0) velocity.x = 0;
+				}
+				if(velocity.x > 0){
+					velocity.x -= HORIZONTAL_DECELERATION * Time.dt;
+					if(velocity.x < 0) velocity.x = 0;
+				}
+			}
 		}
 	}
 }
