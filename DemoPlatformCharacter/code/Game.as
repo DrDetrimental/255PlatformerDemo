@@ -8,7 +8,7 @@
 		
 		
 		public function Game() {
-			trace("i work");
+			KeyboardInput.setup(stage);
 			addEventListener(Event.ENTER_FRAME, gameLoop);
 		}//ends game constructor
 		
