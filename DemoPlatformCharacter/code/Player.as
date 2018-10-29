@@ -13,10 +13,18 @@
 		private var velocity:Point = new Point(0, 0);
 		/* variable declaring the player's maximum speed */
 		private var maxSpeed:Number = 300;
+		/** variable storing the player's current state
+		 * 0 = on ground
+		 * 1 = in air, hasn't doublejumped
+		 * 2 = in air, has doublejumped
+		 */
+		private var playerState:int = 1;
 		/* constant storing the player's horizontal deceleration */
 		private const HORIZONTAL_ACCELERATION:Number = 800;
 		/* constant storing the player's horizontal acceleration */
 		private const HORIZONTAL_DECELERATION:Number = 800;
+		/* constant storing the player's jump speed */
+		private const JUMP_SPEED:Number = -300
 		
 		/* Constructor code for the player */
 		public function Player() {
@@ -25,7 +33,6 @@
 		
 		/* Update function for the player */
 		public function update():void{
-			trace(KeyboardInput.OnKeyDown(Keyboard.LEFT));
 			
 			handleJumping();
 			
@@ -42,6 +49,7 @@
 			if (y > ground){
 				y = ground; //clamp position
 				velocity.y = 0; //clamp velocity
+				playerState = 0;
 			}
 		}
 		/* function handling physics */
@@ -79,15 +87,25 @@
 		private function handleJumping():void {
 			
 			/** TO DO:
-			 * Press space -> Jump.
 			 * Hold space -> Jump higher.
-			 * Press space midair -> double jump.
 			 */
 
 			if(KeyboardInput.OnKeyDown(Keyboard.SPACE)){
-				//jump from ground
-				velocity.y = -200;
-				trace("jump");
+				if(playerState == 0){
+					//jump from ground
+					velocity.y = JUMP_SPEED;
+					//trace("jump");
+					playerState = 1;
+				} else if (playerState == 1) {
+					//jump in midair
+					velocity.y = JUMP_SPEED;
+					//trace("double jump");
+					playerState = 2;
+				} else {
+					//nothing
+					//trace("already double jumped");
+				}
+				
 			}
 		}
 	}
