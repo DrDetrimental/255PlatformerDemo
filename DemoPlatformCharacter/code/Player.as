@@ -33,6 +33,7 @@
 		
 		/* Update function for the player */
 		public function update():void{
+			trace(gravity.y);
 			
 			handleJumping();
 			
@@ -85,11 +86,7 @@
 		}
 		/* function handling jumping */
 		private function handleJumping():void {
-			
-			/** TO DO:
-			 * Hold space -> Jump higher.
-			 */
-
+			//if space is pressed...
 			if(KeyboardInput.OnKeyDown(Keyboard.SPACE)){
 				if(playerState == 0){
 					//jump from ground
@@ -105,7 +102,20 @@
 					//nothing
 					//trace("already double jumped");
 				}
-				
+			}
+			//if holding space...
+			if(KeyboardInput.IsKeyDown(Keyboard.SPACE)){
+				//...while player is going up:
+				if(velocity.y < 0){
+					//reduce gravity
+					gravity.y = 200;
+				} else {
+					//gravity is normal
+					gravity.y = 400;
+				}
+			} else {
+				//gravity is normal
+				gravity.y = 400;
 			}
 		}
 	}
