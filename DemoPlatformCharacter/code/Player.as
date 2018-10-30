@@ -29,6 +29,7 @@
 		/* Constructor code for the player */
 		public function Player() {
 			// constructor code
+			var playerCollider = new Collider(width / 2, height / 2);
 		}
 		
 		/* Update function for the player */
@@ -42,6 +43,8 @@
 			doPhysics();
 			
 			detectGround();
+			
+			playerCollider.calcCollide(x, y);
 		}
 		/* function handling ground detection */
 		private function detectGround():void{
