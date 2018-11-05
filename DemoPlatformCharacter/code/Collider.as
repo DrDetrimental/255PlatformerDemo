@@ -2,7 +2,6 @@
 	
 	public class Collider {
 		
-		//??
 		private var halfWidth:Number;
 		private var halfHeight:Number;
 		

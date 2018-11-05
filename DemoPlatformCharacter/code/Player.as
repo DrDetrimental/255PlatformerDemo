@@ -26,35 +26,38 @@
 		/* constant storing the player's jump speed */
 		private const JUMP_SPEED:Number = -300
 		
+		var playerCollider = new Collider(width / 2, height / 2);
+		
 		/* Constructor code for the player */
 		public function Player() {
 			// constructor code
-			var playerCollider = new Collider(width / 2, height / 2);
+			
 		}
 		
 		/* Update function for the player */
 		public function update():void{
-			trace(gravity.y);
 			
-			handleJumping();
+			handleJumping(); //Handles jumping
 			
-			handleWalking();
+			handleWalking(); //Handles moving
 			
-			doPhysics();
+			doPhysics(); //Updates player's position
 			
-			detectGround();
+			detectCollision(); //Detects any collisions
 			
-			playerCollider.calcCollide(x, y);
+			playerCollider.calcCollide(x, y); //Calculates the position of the player's hitbox
+
 		}
 		/* function handling ground detection */
-		private function detectGround():void{
-			//look at y position
+		private function detectCollision():void{
+			/*look at y position */
 			var ground:Number = 350;
 			if (y > ground){
 				y = ground; //clamp position
 				velocity.y = 0; //clamp velocity
 				playerState = 0;
 			}
+			
 		}
 		/* function handling physics */
 		private function doPhysics():void{
@@ -72,10 +75,10 @@
 		}
 		/* function handling horizontal movement */
 		private function handleWalking():void{
-			//accelerate in the direction of the arrow key pressed
+			/*accelerate in the direction of the arrow key pressed */
 			if(KeyboardInput.IsKeyDown(Keyboard.LEFT)) velocity.x -= HORIZONTAL_ACCELERATION * Time.dt;
 			if(KeyboardInput.IsKeyDown(Keyboard.RIGHT)) velocity.x += HORIZONTAL_ACCELERATION * Time.dt;
-			//decelerate if no keys are pressed
+			/* decelerate if no keys are pressed */
 			if(!KeyboardInput.IsKeyDown(Keyboard.LEFT) && !KeyboardInput.IsKeyDown(Keyboard.RIGHT)){
 				if(velocity.x < 0){
 					velocity.x += HORIZONTAL_DECELERATION * Time.dt;
