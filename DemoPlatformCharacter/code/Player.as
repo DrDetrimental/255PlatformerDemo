@@ -10,7 +10,7 @@
 		/* variable holding the values for x/y gravity */
 		private var gravity:Point = new Point(0, 400);
 		/* variable holding the velocity values for the player */
-		private var velocity:Point = new Point(0, 0);
+		public var velocity:Point = new Point(0, 0);
 		/* variable declaring the player's maximum speed */
 		private var maxSpeed:Number = 300;
 		/** variable storing the player's current state
@@ -18,7 +18,7 @@
 		 * 1 = in air, hasn't doublejumped
 		 * 2 = in air, has doublejumped
 		 */
-		private var playerState:int = 1;
+		public var playerState:int = 1;
 		/* constant storing the player's horizontal deceleration */
 		private const HORIZONTAL_ACCELERATION:Number = 800;
 		/* constant storing the player's horizontal acceleration */

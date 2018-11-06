@@ -20,7 +20,12 @@
 		}//ends gameLoop
 		private function collisionDetection():void {
 			if(player.playerCollider.checkOverlap(platform.platformCollider)){
-				platform.alpha = .5;
+				if(player.playerCollider.yMax > platform.platformCollider.yMin){
+					player.y = platform.platformCollider.yMin - player.height / 2;
+					player.velocity.y = 0; //clamp velocity
+					player.playerState = 0;
+					
+				}
 			} else {
 				platform.alpha = 1;
 			}
